@@ -25,39 +25,46 @@ int main() {
 	std::ofstream ofs; // create the output stream to write to an output file
 	std::string temp; // used to store the current instruction
 	AVL* avlptr = NULL;//the AVL
-	// Test
-	AVL testing;
-	cout << "LL" << endl;
-	testing.add(3);
-	testing.add(2);
-	testing.add(1);
-	testing.printTree(testing.root);
-	testing.clear();
 
-	cout << "RR" << endl;
+	// // 	// Test
+	AVL testing;
+	// // // cout << "LL" << endl;
+	// // // testing.add(5);
+	// // // testing.add(4);
+	// // // testing.add(3);
+	// // // testing.add(2);
+	// // // testing.add(1);
+	// // // testing.printTree(testing.root);
+	// // // testing.clear();
+
+
+	// // testing.add(3);
+	// // testing.add(1);
+	// // testing.add(5);
+	// // testing.add(4);
+	// // testing.add(6);
+	// // testing.add(7);
+	// // testing.printTree(testing.root);
+
 	testing.add(1);
 	testing.add(2);
 	testing.add(3);
-	testing.printTree(testing.root);
-	testing.clear();
-	// testing.add(1);
-	// testing.add(2);
-	// testing.add(3);
-	// testing.add(4);
-	// testing.add(5);
-	// testing.add(6);
-	// testing.add(10);
-	// testing.add(8);
-	// testing.add(7);
-	// testing.add(9);
-	// testing.remove(11);
-	// testing.remove(10);
-	// testing.remove(9);
-	// testing.remove(6);
+	testing.add(4);
+	testing.add(5);
+	testing.add(6);
+	testing.add(10);
+	testing.add(8);
+	testing.add(7);
+	testing.add(9);
+	// // testing.remove(11);
+	// // testing.remove(10);
+	// // testing.remove(9);
+	// // testing.remove(6);
 	testing.printTree(testing.root);
 
 	return 0;
 	// End Test
+
 	for (int i = 0; i < NUM_FILES; i++) {
 		ifs.open(fileArray[i]); // open the file to read from
 		ofs.open("out_" + fileArray[i]); // open the file to write to
