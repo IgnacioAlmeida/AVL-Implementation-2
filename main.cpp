@@ -26,47 +26,40 @@ int main() {
 	std::string temp; // used to store the current instruction
 	AVL* avlptr = NULL;//the AVL
 
-	// 	// Test
-AVL testing;
+// 		// Test
+// AVL testing;
 
-testing.add(1);
-testing.add(2);
-testing.add(3);
-testing.add(4);
-testing.add(5);
-testing.add(6);
-testing.add(10);
-testing.add(8);
-testing.add(7);
-testing.add(9);
-cout << endl;
-testing.printTree(testing.root);
-testing.remove(11);
-testing.remove(10);
-cout << endl;
-testing.printTree(testing.root);
-testing.remove(9);
-cout << endl;
-testing.printTree(testing.root);
-testing.remove(6);
 // testing.add(1);
 // testing.add(2);
 // testing.add(3);
 // testing.add(4);
 // testing.add(5);
 // testing.add(6);
-// testing.add(10);
-// testing.add(8);
 // testing.add(7);
+// testing.add(8);
 // testing.add(9);
-// testing.remove(11);
-// testing.remove(10);
-// testing.remove(9);
+// testing.add(10);
+// testing.add(11);
+// testing.add(12);
+// testing.add(13);
+// testing.add(14);
+// testing.add(15);
+// testing.add(16);
+// testing.add(17);
+// testing.add(18);
+// testing.add(19);
+// testing.add(20);
+// testing.remove(8);
+// testing.remove(7);
 // testing.remove(6);
-testing.printTree(testing.root);
+// testing.remove(5);
+// cout << endl;
+// testing.printTree(testing.root);
 
-return 0;
-	// End Test
+// // testing.printTree(testing.root);
+
+// return 0;
+// 	// End Test
 
 	for (int i = 0; i < NUM_FILES; i++) {
 		ifs.open(fileArray[i]); // open the file to read from

@@ -40,6 +40,6 @@ public:
 
 	int calculateHeight(Node* node);
 
-	int get_height(Node* node);
+	// int get_height(Node* node);
 
 };
