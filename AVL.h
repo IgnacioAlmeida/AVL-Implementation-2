@@ -38,7 +38,7 @@ public:
 
 	int max(int x, int y);//
 
-	void calculateHeight(Node* node);
+	int calculateHeight(Node* node);
 
 	int get_height(Node* node);
 

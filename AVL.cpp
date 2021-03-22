@@ -11,33 +11,24 @@ bool AVL::recursiveAdd(Node*& node, int data) {
 		cout << "Insert new node " << node->data << endl;
 		return true;
 	} 
-	else if(node->data == data){
+		//If data already exists
+	if(node->data == data){
 		return false;
 	}
 		//Creating Node to the left of the tree	
-	else if (data < node->data){
+	if (data < node->data){
 			bool rval =  recursiveAdd(node->left, data);
-			if(rval)
-				rebalance(node);
-			calculateHeight(node);
+			rebalance(node);
+			node->height = calculateHeight(node);
 			return rval;
 		}
 		//Creating node to the right of the tree
 	else if (data > node->data){
 		bool rval = recursiveAdd(node->right, data);
-		if(rval)
-			rebalance(node);
-		calculateHeight(node);
+		rebalance(node);
+		node->height = calculateHeight(node);
 		return rval;
 	}
-		//If data already exists
-	else{ 
-		bool rval = recursiveAdd(node->right, data);
-		if(rval)
-			rebalance(node);
-		calculateHeight(node);
-		return rval;
-	}	
 }
 
 
@@ -45,37 +36,35 @@ void AVL::rebalance(Node*& node){
 	int treeBalance = getBalance(node);
 	cout << "treeBalance: " << treeBalance << " on node " << node->data << endl;
  		//LL or LR tree
-	if (treeBalance == -2){
-		int localLeftBalance = getBalance(node->left);
+	if (treeBalance < -1){
+		//int localLeftBalance = getBalance(node->left);
 			//LL
-		if(localLeftBalance == -1 || localLeftBalance == 0){
+		if(getBalance(node->left) == -1 || getBalance(node->left) == 0){
 			cout << "LL" << endl;
 			rotateRight(node);
 		}
 			//LR
-		if(localLeftBalance == 1){
+		else if(getBalance(node->left) == 1){
 			cout << "LR" << endl;
 			rotateLeft(node->left);
 			rotateRight(node);
 		}
 	}
 		//RR or RL
-	if(treeBalance == 2){
-		int localRightBalance = getBalance(node->right);
+	else if(treeBalance > 1){
+		//int localRightBalance = getBalance(node->right);
 			//RR
-		if(localRightBalance == 1 || localRightBalance == 0){
+		if(getBalance(node->right) == 1 || getBalance(node->right) == 0){
 			cout << "RR" << endl;
 			rotateLeft(node);
 		}
-			//LR
-		if(localRightBalance == - 1){
-			cout << "LR" << endl;
+			//RL
+		else if(getBalance(node->right) == - 1){
+			cout << "RL" << endl;
 			rotateRight(node->right);
 			rotateLeft(node);
 		}
 	}
-	else
-		return;
 }	
 
 
@@ -86,14 +75,15 @@ int AVL::getBalance(Node*& node){
 		return 0;
 	}
 	if(node->right == NULL){
-		return (0 - node->left->getHeight());
+		return (0 - calculateHeight(node->left));
 		}
 	if(node->left == NULL){
-		return node->right->getHeight();
+		return calculateHeight(node->right);
 		}
 	else{
-		return (node->right->getHeight() - node->left->getHeight());
+		return (calculateHeight(node->right) - calculateHeight(node->left));
 	}
+
 }
 
 int AVL::get_height(Node* node){
@@ -102,9 +92,10 @@ int AVL::get_height(Node* node){
 	else
 		return node->getHeight();
 }
-void AVL::calculateHeight(Node* node){
+//return an integer and update in add function
+int AVL::calculateHeight(Node* node){
 	if(node == NULL){
-		return;
+		return 0;
 	}
 	int max = 0;
 	if(get_height(node->left) > max){
@@ -113,7 +104,8 @@ void AVL::calculateHeight(Node* node){
 	if(get_height(node->right) > max){
 		max = get_height(node->right);
 	}
-	node->height = max + 1;
+	// node->height = max + 1;
+	return max + 1;
 	// cout << "node " << node->data << " with height " << node->height << endl;
 }
 
@@ -124,6 +116,7 @@ void AVL::rotateRight(Node*& node){
   temp->right = node;
   node = temp;
 
+	node->height = calculateHeight(node);
 
 }
 
@@ -133,6 +126,8 @@ void AVL::rotateLeft(Node*& node){
 	node = node->right;
 	temp->right = node->left;
 	node->left = temp;
+
+	node->height = calculateHeight(node);
 
 }
 
@@ -159,31 +154,48 @@ bool AVL::remove(int data){
 }
 
 bool AVL::recursiveRemove(Node*& node, int data){
-	//If tree is empty
-	if(node == NULL)
+	bool rval;
+		//1. Base Condition - If node is empty
+	if(node == NULL){
 		return false;
+	}
 	else{
-		//Going to the left
-		if(data < node->data)
+			//2. Going to the left
+		if(data < node->data){
 			return recursiveRemove(node->left, data);
-		//Going to the right
-		else if (data > node->data)
-			return recursiveRemove(root->right, data);
-		//The item is in the local root
-		else {
+		}
+			//3. Going to the right
+		else if (data > node->data){
+			return recursiveRemove(node->right, data);
+		}
+			//4. Node to be deleted found
+		else if (node->data == data){
+			cout << "deleting node " << node->data << endl;
 			Node* temp = node;
-			//If the node doesn't have a lesser child
-			if(node->left == NULL)
+
+				//If the node doesn't have a lesser child
+			if(node->left == NULL){
+				cout << "If node doesn't have lesser child " << endl;
 				node = node->right;
-			//If the node doesn't have a higher child
-			else if(node->right == NULL)
+			}
+				//If the node doesn't have a higher child
+			else if(node->right == NULL){
+				cout << "If node doesn't have a higher child "<< endl;
 				node = node->left;
-			//If node has both children	
-			else 
-				replaceParent(temp, temp->left);	
+			}
+				//If node has both children	
+			else {
+				cout << "if node has both children" << endl;
+				replaceParent(temp, temp->left);
+			}
+				cout << endl << "------> rebalance <------" << endl;
+				rebalance(node);
+				cout << "before updating height " << endl;
+				node->height = calculateHeight(node);	
 			delete temp;
 			return true;
-		}	
+
+			}
 	}
 }
 
@@ -196,4 +208,5 @@ void AVL::replaceParent(Node*& temp, Node*& root){
 		temp = root;
 		root = root->left;
 	}
+	
 }

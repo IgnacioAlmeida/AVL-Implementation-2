@@ -26,43 +26,46 @@ int main() {
 	std::string temp; // used to store the current instruction
 	AVL* avlptr = NULL;//the AVL
 
-	// // 	// Test
-	AVL testing;
-	// // // cout << "LL" << endl;
-	// // // testing.add(5);
-	// // // testing.add(4);
-	// // // testing.add(3);
-	// // // testing.add(2);
-	// // // testing.add(1);
-	// // // testing.printTree(testing.root);
-	// // // testing.clear();
+	// 	// Test
+AVL testing;
 
+testing.add(1);
+testing.add(2);
+testing.add(3);
+testing.add(4);
+testing.add(5);
+testing.add(6);
+testing.add(10);
+testing.add(8);
+testing.add(7);
+testing.add(9);
+cout << endl;
+testing.printTree(testing.root);
+testing.remove(11);
+testing.remove(10);
+cout << endl;
+testing.printTree(testing.root);
+testing.remove(9);
+cout << endl;
+testing.printTree(testing.root);
+testing.remove(6);
+// testing.add(1);
+// testing.add(2);
+// testing.add(3);
+// testing.add(4);
+// testing.add(5);
+// testing.add(6);
+// testing.add(10);
+// testing.add(8);
+// testing.add(7);
+// testing.add(9);
+// testing.remove(11);
+// testing.remove(10);
+// testing.remove(9);
+// testing.remove(6);
+testing.printTree(testing.root);
 
-	// // testing.add(3);
-	// // testing.add(1);
-	// // testing.add(5);
-	// // testing.add(4);
-	// // testing.add(6);
-	// // testing.add(7);
-	// // testing.printTree(testing.root);
-
-	testing.add(1);
-	testing.add(2);
-	testing.add(3);
-	testing.add(4);
-	testing.add(5);
-	testing.add(6);
-	testing.add(10);
-	testing.add(8);
-	testing.add(7);
-	testing.add(9);
-	// // testing.remove(11);
-	// // testing.remove(10);
-	// // testing.remove(9);
-	// // testing.remove(6);
-	testing.printTree(testing.root);
-
-	return 0;
+return 0;
 	// End Test
 
 	for (int i = 0; i < NUM_FILES; i++) {
